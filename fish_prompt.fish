@@ -9,7 +9,7 @@
 # * return code from last cmd
 
 function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+  echo (command git symbolic-ref HEAD 2>/dev/null | sed -e 's|^refs/heads/||')
 end
 
 function _is_git_dirty
@@ -44,12 +44,12 @@ function fish_prompt
 
   # Display [venvname] if in a virtualenv
   if set -q VIRTUAL_ENV
-      echo -n -s $blue '[' (basename "$VIRTUAL_ENV") ']' $normal ' '
+    echo -n -s $blue '[' (basename "$VIRTUAL_ENV") ']' $normal ' '
   end
 
   # Display [playgroundname] if in a playground
   if set -q PLAYGROUND_ENV
-      echo -n -s $purple '[' (basename "$PLAYGROUND_ENV") ']' $normal ' '
+    echo -n -s $purple '[' (basename "$PLAYGROUND_ENV") ']' $normal ' '
   end
 
   # Display [user & host] when on remote host
